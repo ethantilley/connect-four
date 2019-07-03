@@ -4,30 +4,125 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+  height: 80px;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.App-intro {
+  font-size: large;
 }
 
+.Game {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+    background-color: #5689db;
+    border: 1px solid #5689db;
+    border-radius: 3px;
+    display: inline-block;
+    color: #FFF;
+    font-size: 12pt;
+    padding: 7px 28px;
+    text-decoration: none;
+    margin: 5px;
+    transition: all 0.5s;
+    max-width: 160px;
+    min-width: 160px;
+}
+
+button:hover {
+    background-color: lightblue;
+    font-size: 14pt;
+}
+
+.Board {
+  display: flex;
+  padding-top: 5em;
+}
+
+
+
+.Cell {
+  padding: 5px;
+  margin: 1px;
+  min-width: 30px;
+  min-height: 30px;
+  background: rgb(42, 132, 250);
+  border: 1px solid lightblue;
+}
+
+.Circle {
+  min-width: 10px;
+  min-height: 10px;
+  color: white;
+  background: white;
+  border: 1px solid lightblue;
+  border-radius: 10px;
+}
+
+.Cell div {
+  position: relative;
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 15px;
+  top: -400px;
+  transition: transform 0.5s;
+}
+.Info {
+  display: inline-block;
+}
+.Player1 {
+  position: relative;
+  min-width: 30px;
+  min-height: 30px;
+  border: 1px solid rgb(218, 217, 217);  
+  border-radius: 15px;
+  background: red;
+
+}
+.Player2 {
+  position: relative;
+  min-width: 30px;
+  min-height: 30px;
+  border: 1px solid rgb(218, 217, 217);  
+  border-radius: 15px;
+  background: rgb(255, 251, 5);
+}
+
+.Red {
+  background-color: rgb(241, 60, 100);
+  transform: translateY(400px);
+}
+
+.Yellow {
+  background-color: rgb(255, 251, 5);
+  transform: translateY(400px);
+}
+
+.winnerMessage {
+  margin: 20px;
+  font-size: 0pt;
+  font: 12pt;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.18, 0.99, 0.8, 1.17);
+}
+
+.appear {
+  opacity: 1;
+  font-size: 20pt;
+}
+
+
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
