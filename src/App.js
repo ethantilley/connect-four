@@ -133,7 +133,7 @@ class GameBoard extends Component {
               <div className={player1Class} />
               <div className={player2Class} />
               <div className={winMessageClassName}>{this.state.winner}</div>
-              {/* Reset button that only desplys when a reset in potentially necessary */}
+              {/* Reset button that only displays when a reset in potentially necessary */}
               {(this.state.totalPlays > 0 && this.state.winner === '') &&
                 <button onClick={() => this.startGame()} style={{minWidth:'100px'}}>Reset</button>
               }
