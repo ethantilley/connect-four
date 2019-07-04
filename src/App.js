@@ -1,31 +1,31 @@
-import React, { Text, Component } from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
-function Cell(props) {
-  return (
-   
-    <div className="Cell">    
-      <div className={props.value}/>
-    </div>
-  ) 
-}
+import FU from './media/fulogo.png'
 
 function Column(props) {
   return (
-
-    <div className="Collum" onClick={() => props.handleClick()}>
+    <div className="Column" onClick={() => props.handleClick()}>
       {
-        [...Array(props.cells.length)].map ( 
-          (x, j) => 
-             
-            <Cell key={j} value={props.cells[j]}/>
-         
+        // Stepping through each element in a column array to add cells 
+        [...Array(props.cells.length)].map(
+          (x, j) =>
+            <Cell key={j} value={props.cells[j]} />
         )
       }
     </div>
   )
 }
+
+function Cell(props) {
+  return (
+    <div className="Cell">
+      <div className={props.value} />
+    </div>
+  )
+}
+
+
 class GameBoard extends Component {
 
   constructor() {
@@ -33,33 +33,32 @@ class GameBoard extends Component {
     this.state = {
       boardState: new Array(7).fill(new Array(6).fill(null)),
       currentPlayer: 'Red',
-      gameSelected: false,
+      gameActive: false,
       winner: '',
-      gameOver: false,
-      totalPlays: 0,
-
+      totalPlays: 0
     }
   }
 
+  /* Reset some state values for fresh game */
   startGame() {
     this.setState({
-      gameSelected: true,
+      gameActive: true,
       boardState: new Array(7).fill(new Array(6).fill(null)),
-      totalPlays: 0,
-      winner: '',
-      gameOver: false
-
+      totalPlays: 0
     })
   }
 
-  makeMove(slatID) {
+  playMove(columnID) {
     const boardCopy = this.state.boardState.map(function (arr) {
       return arr.slice();
     });
-    if (boardCopy[slatID].indexOf(null) !== -1) {
-      let newCol = boardCopy[slatID].reverse()
-      newCol[newCol.indexOf(null)] = this.state.currentPlayer
-      newCol.reverse()
+    // checks if there's anempty space in this slot (is it full?)
+    if (boardCopy[columnID].indexOf(null) !== -1) {
+      // reversing the array to assign the next empty space      
+      let newColumn = boardCopy[columnID].reverse()
+      newColumn[newColumn.indexOf(null)] = this.state.currentPlayer
+      newColumn.reverse() // reversing back
+      // changing players and refreashing the state of the board.
       this.setState({
         currentPlayer: (this.state.currentPlayer === 'Red') ? 'Yellow' : 'Red',
         boardState: boardCopy
@@ -68,159 +67,136 @@ class GameBoard extends Component {
     }
   }
 
-  /*Only make moves if winner doesn't exist*/
-  handleClick(colID) {
+  /* called when the player clicks on a column */
+  handleClick(columnID) {
+    // Only make plays when there's no winner yet
     if (this.state.winner === '') {
-      this.makeMove(colID)
+      this.playMove(columnID)
     }
   }
 
-  /*check the winner and make AI move IF game is in AI mode*/
+  /* Check if there's a winner */
   componentDidUpdate() {
-    if(this.state.totalPlays >= 7 && !this.state.gameOver)
-     {
-       let winner = checkAll(this.state.boardState)
-       if (winner !== null) {
-         this.setState({ winner: winner, gameOver: true })
-         winner = null;
-       }
-
-     }
-      
+    // No point checking for a winner if there hasn't been enough placed!
+    if(this.state.totalPlays >= 7) {
+      let winner = checkWinStates(this.state.boardState) // run all the checks for a winner
+      if (this.state.winner !== winner) {
+        this.setState({ winner: winner }) // set winner in state
+      }
+    }
   }
 
   render() {
+    
+    /* Contructing the columns */
+    let columns = [...Array(this.state.boardState.length)].map( 
+      (x, i) =>
+        <div>
+          <Column
+            key={i}
+            cells={this.state.boardState[i]}
+            handleClick={() => this.handleClick(i)} // setting click event
+          />
+          <div className="drop-point" onClick={() => this.handleClick(i)} />
 
-    /*If a winner exists display the name*/
-    let winnerMessageStyle
+        </div>
+    )
+
+    // If a winner exists... set the winner text a new class name for css styling
+    let winMessageClassName
     if (this.state.winner !== "") {
-      winnerMessageStyle = "winnerMessage appear"
+      winMessageClassName = "winnerMessage appear"
     } else {
-      winnerMessageStyle = "winnerMessage"
+      winMessageClassName = "winnerMessage"
     }
 
-    /*Contruct slats allocating column from board*/
-    let slats = [...Array(this.state.boardState.length)].map((x, i) =>
-      <Column
-        key={i}
-        cells={this.state.boardState[i]}
-        handleClick={() => this.handleClick(i)}
-      />
-    )
+
+    // current player indication!
+    let player1Class = (this.state.currentPlayer !== 'Red') ? 'Player1' : 'Player1 displayActive';
+    let player2Class = (this.state.currentPlayer !== 'Yellow') ? 'Player2' : 'Player2 displayActive';
 
     return (
       <div>
-           <div className="Title">Connect Four! (FU Coding Test)</div>
-            <div className="Info">
-              <div className="Player1"/>
-              <div className="Player2"/>
-            </div>
-        { this.state.gameSelected &&
+        {this.state.gameActive &&
           <div className="Board">
-           
-            {slats}
+            <div className='Info'>
+              <h2>Plays: {this.state.totalPlays}</h2>
+              <div className={player1Class} />
+              <div className={player2Class} />
+              <div className={winMessageClassName}>{this.state.winner}</div>
+            </div>
+            {columns}
           </div>
         }
-        <div className={winnerMessageStyle}>{this.state.winner}</div>
-        {(!this.state.gameSelected || this.state.winner !== null ) &&
+        {/* button that only appears when there's a winner or a draw */}
+        {(!this.state.gameActive || this.state.winner !== '') &&
           <div>
-            <button onClick={() => this.startGame()}>Play</button>
+            <button onClick={() => this.startGame()}>Play Game</button>
           </div>
         }
       </div>
     )
   }
 }
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+        <div className="App-header">
+          <h1>Connect Four</h1>
+          <h2>An <img src={FU} className="fu-logo" /> Coding Challange!</h2>
+        </div>
         <div className="Game">
           <GameBoard />
         </div>
-        
       </div>
     );
   }
 }
+
+/* Are these arguments (cells on the board) contain the same player 'token' */
 function checkLine(a, b, c, d) {
   return ((a !== null) && (a === b) && (a === c) && (a === d));
 }
 
-function checkVertical(board) {
-  // Check only if row is 3 or greater
-  for (let r = 3; r < 6; r++) {
-    for (let c = 0; c < 7; c++) {
-      if (board[r][c]) {
-        if (board[r][c] === board[r - 1][c] &&
-            board[r][c] === board[r - 2][c] &&
-            board[r][c] === board[r - 3][c]) {
-          return board[r][c] + ' wins!';    
-        }
-      }
-    }
-  }
-}
+/* checks all the cells for any that line up for a win  */
+function checkWinStates(board) {
 
-function checkHorizontal(board) {
-  // Check only if column is 3 or less
-  for (let r = 0; r < 6; r++) {
-    for (let c = 0; c < 4; c++) {
-      if (board[r][c]) {
-        if (board[r][c] === board[r][c + 1] && 
-            board[r][c] === board[r][c + 2] &&
-            board[r][c] === board[r][c + 3]) {
-          return board[r][c] + ' wins!';
-        }
-      }
-    }
-  }
-}
+  /* Checks for a diagonal line going left  */
+  for (let r = 0; r < 3; r++)
+    for (let c = 0; c < 4; c++)
+      if (checkLine(board[c][r], board[c + 1][r + 1], board[c + 2][r + 2], board[c + 3][r + 3]))
+        return board[c][r] + (" wins!")
 
-function checkDiagonalRight(board) {
-  // Check only if row is 3 or greater AND column is 3 or less
-  for (let r = 3; r < 6; r++) {
-    for (let c = 0; c < 4; c++) {
-      if (board[r][c]) {
-        if (board[r][c] === board[r - 1][c + 1] &&
-            board[r][c] === board[r - 2][c + 2] &&
-            board[r][c] === board[r - 3][c + 3]) {
-          return board[r][c] + ' wins!';
-        }
-      }
-    }
-  }
-}
+  /* Checking for vertical connections */
+  for (let c = 0; c < 7; c++)
+    for (let r = 0; r < 4; r++)
+      if (checkLine(board[c][r], board[c][r + 1], board[c][r + 2], board[c][r + 3]))
+        return board[c][r] + ' wins!'
 
-function checkDiagonalLeft(board) {
-  // Check only if row is 3 or greater AND column is 3 or greater
-  for (let r = 3; r < 6; r++) {
-    for (let c = 3; c < 7; c++) {
-      if (board[r][c]) {
-        if (board[r][c] === board[r - 1][c - 1] &&
-            board[r][c] === board[r - 2][c - 2] &&
-            board[r][c] === board[r - 3][c - 3]) {
-          return board[r][c] + ' wins!';
-        }
-      }
-    }
-  }
-}
+  /* Checks for horizontal lines */
+  for (let r = 0; r < 6; r++)
+    for (let c = 0; c < 4; c++)
+      if (checkLine(board[c][r], board[c + 1][r], board[c + 2][r], board[c + 3][r]))
+        return board[c][r] + ' wins!'
 
-function checkDraw(board) {
+  /* Checks for the diagonal win state on the right side of the board */
+  for (let r = 0; r < 4; r++)
+    for (let c = 3; c < 7; c++)
+      if (checkLine(board[c][r], board[c - 1][r + 1], board[c - 2][r + 2], board[c - 3][r + 3])) // counting up and to the right to see if the same play has placed there.
+        return board[c][r] + ' wins!'
+
+  /* Check to see if there's an empty space to return theres no winner... otherwise... return it's a draw! */
   for (let r = 0; r < 6; r++) {
     for (let c = 0; c < 7; c++) {
-      if (board[r][c] === null) {
-        return null;
-      }
+      if (board[c][r] == null)
+        return "";
     }
   }
-  return 'Its a Draw!';    
-}
 
-function checkAll(board) {
-  return checkVertical(board) || checkDiagonalRight(board) || checkDiagonalLeft(board) || checkHorizontal(board) || checkDraw(board);
+  return 'Draw! You both win!'
 }
 
 export default App;

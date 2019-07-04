@@ -1,21 +1,28 @@
 .App {
   text-align: center;
+  
+  background: #fffdef;
+  height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.fu-logo {
+width: 2em;
+border-radius: 1em;
+transform: translateY(30%);
 }
 
 .App-header {
-  background-color: #222;
+  background: #0F2027;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
   height: 150px;
   padding: 20px;
   color: white;
 }
 
-.App-intro {
-  font-size: large;
+.App-header h1 {
+  text-decoration-line: underline;
 }
 
 .Game {
@@ -25,28 +32,32 @@
 }
 
 button {
-    background-color: #5689db;
-    border: 1px solid #5689db;
-    border-radius: 3px;
-    display: inline-block;
-    color: #FFF;
-    font-size: 12pt;
-    padding: 7px 28px;
-    text-decoration: none;
-    margin: 5px;
-    transition: all 0.5s;
-    max-width: 160px;
-    min-width: 160px;
+  background-color: #5e96f0;
+  border: 1px solid #436fb6;
+  border-radius: 4px;
+  display: inline-block;
+  color: #FFF;
+  font-size: 22pt;
+  padding: 7px 28px;
+  text-decoration: none;
+  margin: 15px;
+  transition: all 0.5s;
+  max-width: 230px;
+  min-width: 230px;
 }
 
 button:hover {
-    background-color: lightblue;
-    font-size: 14pt;
+  background-color: rgb(42, 132, 250);
+  color: rgb(19, 52, 97);
+  transform: scale(1.1);
 }
 
 .Board {
   display: flex;
-  padding-top: 5em;
+  margin-top: 3.2em;
+  padding-top: 4.1em;
+  overflow: hidden;
+
 }
 
 
@@ -54,48 +65,86 @@ button:hover {
 .Cell {
   padding: 5px;
   margin: 1px;
-  min-width: 30px;
-  min-height: 30px;
+  min-width: 50px;
+  min-height: 50px;
   background: rgb(42, 132, 250);
   border: 1px solid lightblue;
+  border-radius: 15px;
+
 }
 
 .Circle {
-  min-width: 10px;
-  min-height: 10px;
+  min-width: 30px;
+  min-height: 30px;
   color: white;
   background: white;
   border: 1px solid lightblue;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
 .Cell div {
   position: relative;
-  min-width: 30px;
-  min-height: 30px;
-  border-radius: 15px;
+  min-width: 50px;
+  min-height: 50px;
+  border-radius: 25px;
   top: -400px;
+
   transition: transform 0.5s;
 }
-.Info {
-  display: inline-block;
-}
-.Player1 {
+
+.drop-point {
   position: relative;
-  min-width: 30px;
-  min-height: 30px;
-  border: 1px solid rgb(218, 217, 217);  
-  border-radius: 15px;
-  background: red;
+  top: -450px;
+  margin: 5px;
+  min-width: 50px;
+  min-height: 50px;
+  border: 2px solid rgb(31, 31, 31);  
+  border-radius: 30px;
+  background: rgb(172, 171, 171);
+  transition: all 0.5s;
+  display: inline-block;
+  opacity: 0.3;
+}
+
+.drop-point:hover {
+  opacity: .8;
 
 }
-.Player2 {
+
+.Info {
+  padding-right: 3em;
+
+}
+
+.Player1 {
+  margin: 15px;
+
   position: relative;
-  min-width: 30px;
-  min-height: 30px;
+  min-width: 50px;
+  min-height: 50px;
   border: 1px solid rgb(218, 217, 217);  
-  border-radius: 15px;
+  border-radius: 35px;
+  background: rgb(241, 60, 100);
+  transition: transform 0.5s;
+  display: inline-block;
+}
+.Player2 { 
+  margin: 15px;
+  display: inline-block;
+
+
+  position: relative;
+  min-width: 50px;
+  min-height: 50px;
+  border: 1px solid rgb(218, 217, 217);  
+  border-radius: 35px;
   background: rgb(255, 251, 5);
+  transition: transform 0.5s;
+
+}
+
+.displayActive {
+  transform: scale(1.5);
 }
 
 .Red {
@@ -111,18 +160,12 @@ button:hover {
 .winnerMessage {
   margin: 20px;
   font-size: 0pt;
-  font: 12pt;
+  font: 22pt;
   opacity: 0;
   transition: all 0.5s cubic-bezier(0.18, 0.99, 0.8, 1.17);
 }
 
 .appear {
   opacity: 1;
-  font-size: 20pt;
-}
-
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  font-size: 30pt;
 }
