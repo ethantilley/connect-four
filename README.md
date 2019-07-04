@@ -1,7 +1,7 @@
 ## Connect-Four
 Play one on one to win! - Challenge a friend to disc-dropping fun with the classic game of Connect 4! Drop your red or yellow discs in the grid and be the first to get 4 in a row to win.
 
-![Demo-Pic](/src/media.DemoCapture.png "Demo Of Project")
+![Demo-Pic](/src/media/DemoCapture.PNG "Demo Of Project")
 
 ## Built With
 
