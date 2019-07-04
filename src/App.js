@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import FU from './media/fulogo.png'
+import { random } from 'node-forge';
+
+
+function Cell(props) {
+  return (
+    <div className="Cell">
+      <div className={props.value} />
+    </div>
+  )
+}
 
 function Column(props) {
   return (
@@ -15,15 +25,6 @@ function Column(props) {
     </div>
   )
 }
-
-function Cell(props) {
-  return (
-    <div className="Cell">
-      <div className={props.value} />
-    </div>
-  )
-}
-
 
 class GameBoard extends Component {
 
@@ -43,7 +44,8 @@ class GameBoard extends Component {
     this.setState({
       gameActive: true,
       boardState: new Array(7).fill(new Array(6).fill(null)),
-      totalPlays: 0
+      totalPlays: 0,
+      winner: ''
     })
   }
 
@@ -77,7 +79,7 @@ class GameBoard extends Component {
   /* Check if there's a winner */
   componentDidUpdate() {
     // No point checking for a winner if there hasn't been enough placed!
-    if(this.state.totalPlays >= 7) {
+    if (this.state.totalPlays >= 7) {
       let winner = checkWinStates(this.state.boardState) // run all the checks for a winner
       if (this.state.winner !== winner) {
         this.setState({ winner: winner }) // set winner in state
@@ -86,8 +88,8 @@ class GameBoard extends Component {
   }
 
   render() {
-    
-    
+
+
     // If a winner exists... set the winner text a new class name for css styling
     let winMessageClassName
     if (this.state.winner !== "") {
@@ -95,13 +97,12 @@ class GameBoard extends Component {
     } else {
       winMessageClassName = "winnerMessage"
     }
-    
+
     /* Contructing the columns */
-    let columns = [...Array(this.state.boardState.length)].map( 
+    let columns = [...Array(this.state.boardState.length)].map(
       (x, i) =>
-        <div>
+        <div key={i}>
           <Column
-            key={i}
             cells={this.state.boardState[i]}
             handleClick={() => this.handleClick(i)} // setting click event
           />
