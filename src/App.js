@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import FU from './media/fulogo.png'
 
@@ -88,6 +87,15 @@ class GameBoard extends Component {
 
   render() {
     
+    
+    // If a winner exists... set the winner text a new class name for css styling
+    let winMessageClassName
+    if (this.state.winner !== "") {
+      winMessageClassName = "winnerMessage appear"
+    } else {
+      winMessageClassName = "winnerMessage"
+    }
+    
     /* Contructing the columns */
     let columns = [...Array(this.state.boardState.length)].map( 
       (x, i) =>
@@ -101,15 +109,6 @@ class GameBoard extends Component {
 
         </div>
     )
-
-    // If a winner exists... set the winner text a new class name for css styling
-    let winMessageClassName
-    if (this.state.winner !== "") {
-      winMessageClassName = "winnerMessage appear"
-    } else {
-      winMessageClassName = "winnerMessage"
-    }
-
 
     // current player indication!
     let player1Class = (this.state.currentPlayer !== 'Red') ? 'Player1' : 'Player1 displayActive';

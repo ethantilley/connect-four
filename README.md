@@ -1,68 +1,35 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Connect-Four
+Play one on one to win! - Challenge a friend to disc-dropping fun with the classic game of Connect 4! Drop your red or yellow discs in the grid and be the first to get 4 in a row to win.
 
-## Available Scripts
+![Demo-Pic](/src/media.DemoCapture.png "Demo Of Project")
 
-In the project directory, you can run:
+## Built With
 
-### `npm start`
+* [JavaScript](https://www.javascript.com/) - Programming language used
+* [CSS](https://www.w3schools.com/css/css_intro.asp) - Programming language used
+* [HTML](https://www.w3schools.com/html/) - Programming language used
+* [React.JS](https://reactjs.org/) - JavaScript library for building user interfaces
+* [SourceTree](https://www.sourcetreeapp.com/) - Repository softwear paired with github
+* [VS-Code](https://code.visualstudio.com/) - IDE used
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Authors
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+* **Ethan Tilley** - *Solo Developer* - [@EthanTilley_](https://twitter.com/EthanTilley_)
 
-### `npm test`
+## Use
+* Download Repo.
+* Open Command Prompt or terminal in IDE 
+* enter: cd c:\...\Connect-Four
+* enter: npm install
+* enter: npm start
+* Hopfully a local browser page should open and application is ready to use.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Goals With This Program
+- [X] Render columns with cells
+- [X] Place red or yellow coin in cells
+- [X] Animate dropping of coins
+- [X] Win states: checking for coins that align 4 in a row
+- [X] Current player indecation - a way for users to see whos go it is
+- [X] Drop points - points above board where coins drop from.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
