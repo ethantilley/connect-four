@@ -86,15 +86,6 @@ class GameBoard extends Component {
       }
     }
   }
-  
-  resetButton () {
-    if(this.state.totalPlays > 0 && this.state.winner === '')
-    {
-      return ( 
-        <button onClick={() => this.startGame()}>Reset</button>
-      )
-    }
-  }
 
   render() {
 
